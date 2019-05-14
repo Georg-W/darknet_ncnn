@@ -6,9 +6,10 @@ VPATH=./src/:./src/layer:./
 EXT_LIB=libdarknet2ncnn.a
 OBJDIR=./obj/
 
-#CC=gcc
-#CPP=g++
-#AR=ar
+CC=${CC}
+CPP=${CXX}
+AR=${AR}
+
 ARFLAGS=rcs
 OPTS=-Ofast
 LDFLAGS=  -L ncnn/build/install/lib/ -L .  -L darknet  -ldarknet -lncnn -ldarknet2ncnn -lm  -pthread -fopenmp
