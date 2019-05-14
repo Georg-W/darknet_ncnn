@@ -1,8 +1,8 @@
 DEBUG=0
 
 VPATH=./src/:./src/layer:./
-CONVERT=darknet2ncnn
-VERIFY=convert_verify
+#CONVERT=darknet2ncnn
+#VERIFY=convert_verify
 EXT_LIB=libdarknet2ncnn.a
 OBJDIR=./obj/
 
@@ -20,11 +20,11 @@ OPTS=-O0 -g
 endif
 
 CFLAGS+=$(OPTS)
-LDFLAGS+= `pkg-config --libs opencv` -lstdc++
-COMMON+= `pkg-config --cflags opencv` 
+#LDFLAGS+= `pkg-config --libs opencv` -lstdc++
+#COMMON+= `pkg-config --cflags opencv`
 
-CONVERT_OBJA=darknet2ncnn.o
-VERIFY_OBJA=convert_verify.o
+#CONVERT_OBJA=darknet2ncnn.o
+#VERIFY_OBJA=convert_verify.o
 EXT_LIB_OBJA= darknet_activation.o \
 darknet_shortcut.o \
 yolov1_detection.o \
@@ -37,13 +37,8 @@ VERIFY_OBJ  = $(addprefix $(OBJDIR), $(VERIFY_OBJA))
 EXT_LIB_OBJ = $(addprefix $(OBJDIR), $(EXT_LIB_OBJA))
 DEPS = $(wildcard *.h) Makefile
 
-all: obj  $(CONVERT) $(VERIFY) $(EXT_LIB)
-
-$(VERIFY): $(VERIFY_OBJ)  $(EXT_LIB)
-	$(CC)  $^ -o $@ $(LDFLAGS) $(COMMON) $(CFLAGS)
-
-$(CONVERT): $(CONVERT_OBJ)  $(EXT_LIB)
-	$(CC)  $^ -o $@ $(LDFLAGS) $(COMMON) $(CFLAGS)
+#all: obj  $(CONVERT) $(VERIFY) $(EXT_LIB)
+all: obj  $(EXT_LIB)
 
 $(EXT_LIB): $(EXT_LIB_OBJ)
 	$(AR) $(ARFLAGS) $@ $^
