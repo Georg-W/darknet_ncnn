@@ -6,8 +6,8 @@ VPATH=./src/:./src/layer:./
 EXT_LIB=libdarknet2ncnn.a
 OBJDIR=./obj/
 
-CC=gcc
-CPP=g++
+#CC=gcc
+#CPP=g++
 AR=ar
 ARFLAGS=rcs
 OPTS=-Ofast
