@@ -6,9 +6,9 @@ VPATH=./src/:./src/layer:./
 EXT_LIB=libdarknet2ncnn.a
 OBJDIR=./obj/
 
-CC=${CC}
-CPP=${CXX}
-AR=${AR}
+CC_C=${CC}
+CPP_C=${CXX}
+AR_C=${AR}
 
 ARFLAGS=rcs
 OPTS=-Ofast
@@ -42,13 +42,13 @@ DEPS = $(wildcard *.h) Makefile
 all: obj  $(EXT_LIB)
 
 $(EXT_LIB): $(EXT_LIB_OBJ)
-	$(AR) $(ARFLAGS) $@ $^
+	$(AR_C) $(ARFLAGS) $@ $^
 
 $(OBJDIR)%.o: %.cpp $(DEPS)
-	$(CPP) $(COMMON) $(CFLAGS) -c $< -o $@
+	$(CPP_C) $(COMMON) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)%.o: %.c $(DEPS)
-	$(CC) $(COMMON) $(CFLAGS) -c $< -o $@
+	$(CC_C) $(COMMON) $(CFLAGS) -c $< -o $@
 
 %.net:  $(VERIFY) $(CONVERT)
 	./darknet2ncnn data/$(basename  $@).cfg  data/$(basename  $@).weights example/zoo/$(basename  $@).param  example/zoo/$(basename  $@).bin 
