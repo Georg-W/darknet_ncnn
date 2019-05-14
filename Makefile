@@ -8,7 +8,7 @@ OBJDIR=./obj/
 
 #CC=gcc
 #CPP=g++
-AR=ar
+#AR=ar
 ARFLAGS=rcs
 OPTS=-Ofast
 LDFLAGS=  -L ncnn/build/install/lib/ -L .  -L darknet  -ldarknet -lncnn -ldarknet2ncnn -lm  -pthread -fopenmp
