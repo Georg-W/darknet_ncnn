@@ -48,7 +48,7 @@ static cv::Mat letter_box_image(const cv::Mat &src, int net_w, int net_h)
     new_w = (src.cols * net_h) / src.rows;
   }
 
-  cv::Mat dest(net_w, net_h, CV_8UC3, cv::Scalar(128, 128, 128));
+  cv::Mat dest(net_h, net_w, CV_8UC3, cv::Scalar(128, 128, 128));
   cv::Mat embed;
   cv::resize(src, embed, cv::Size(new_w, new_h), 0, 0, cv::INTER_LINEAR);
   cv::Mat imageROI = dest(cv::Rect((net_w - new_w) / 2, (net_h - new_h) / 2,
@@ -124,6 +124,15 @@ class CustomizedNet : public ncnn::Net
 public:
   CustomizedNet() : ncnn::Net(){};
 
+  ncnn::Layer *get_layer_from_index(int index)
+  {
+    if (index < 0)
+    {
+      return NULL;
+    }
+    return layers[index];
+  }
+
   ncnn::Layer *get_layer_from_name(const char *layer_name)
   {
     int index = find_layer_index_by_name(layer_name);
@@ -142,6 +151,18 @@ public:
       return NULL;
     }
     return &(blobs[index]);
+  }
+
+  int get_last_layer_output_blob_index()
+  {
+    int layer_index = layers.size() - 1;
+    if (layer_index < 0)
+    {
+      return -1;
+    }
+
+    int blob_index = layers[layer_index]->tops[0];
+    return blob_index;
   }
 
   ncnn::Blob *get_last_layer_output_blob()
